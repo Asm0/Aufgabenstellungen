@@ -1,6 +1,9 @@
 package A06_Tiefensuche;
 
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import A05_Breitensuche.BaseTree;
 import A05_Breitensuche.Node;
@@ -12,8 +15,8 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * Sortierkriterium im Baum: Länge des Films
 	 */
 	protected int compare(Film a, Film b) {
-
-		return 0;
+		//return ((Double)a.getLänge()).compareTo(b.getLänge());
+		return Double.compare(a.getLänge(), b.getLänge());
 	}
 
 	/**
@@ -22,8 +25,15 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * @return Liste der Titel in symmetrischer Reihenfolge
 	 */
 	public List<String> getNodesInOrder(Node<Film> node) {
-
-		return null;
+		List<String> films = new LinkedList<>();
+		if (node.getLeft() != null) {
+			films.addAll(getNodesInOrder(node.getLeft()));
+		}
+		films.add(node.getValue().getTitel());
+		if(node.getRight() != null) {
+			films.addAll(getNodesInOrder(node.getRight()));
+		}
+		return films;
 	}
 	
 	/**
@@ -33,8 +43,25 @@ public class Tiefensuche extends BaseTree<Film> {
 	 * @return Liste der Filmtitel in Hauptreihenfolge
 	 */
 	public List<String> getMinMaxPreOrder(double min, double max) {
+		List<String> films = new LinkedList<>();
+		Stack<Node> st = new Stack<>();
+		st.push(root);
+		Node n;
+		while(!st.empty()) {
+			n = st.pop();
+			Film f = (Film) n.getValue();
+			if(f.getLänge() < max && f.getLänge() > min) {
+				films.add(f.getTitel());
+			}
+			if(n.getRight() != null) {
+				st.push(n.getRight());
+			}
+			if(n.getLeft() != null) {
+				st.push(n.getLeft());
+			}
 
-		return null;
+		}
+		return films;
 	}
 
 }
