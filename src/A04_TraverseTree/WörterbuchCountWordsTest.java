@@ -20,7 +20,7 @@ public class WörterbuchCountWordsTest {
 		wb.add("Lisa");
 		wb.add("Burns");
 		wb.add("Crusty");
-		wb.add("Bart");		
+		wb.add("Bart");
 	}
 
 	@Test
@@ -33,7 +33,7 @@ public class WörterbuchCountWordsTest {
 		Wort w = wb.find("Bart");
 		assertEquals(1, wb.countWordsInSubTree(w));
 	}
-	
+
 	@Test
 	public void threeWords() {
 		Wort w = wb.find("Maggie");

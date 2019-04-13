@@ -11,8 +11,23 @@ public class Queue<T>
      * @throws QueueEmptyException 
      */
     public T dequeue() throws QueueEmptyException {
-
-    	return null;
+        if(first == null) {
+            throw new QueueEmptyException();
+        } else {
+            T t = first.getData();
+            Node node = last;
+            if(node.getNext() == null) {
+                first = null;
+                last = null;
+            } else {
+                while(node.getNext().hashCode() != first.hashCode()) {
+                    node = node.getNext();
+                }
+                node.setNext(null);
+                first = node;
+            }
+            return t;
+        }
     }
     
     
@@ -22,6 +37,14 @@ public class Queue<T>
      * @param i Zahl
      */
     public void enqueue(T i) {
+        Node node = new Node(i);
+        if(first == null) {
+            first = node;
+            last = node;
+        } else {
+           node.setNext(last);
+           last = node;
+        }
 
     }
     
@@ -30,6 +53,14 @@ public class Queue<T>
      * @return
      */
     public int getCount() {
-    	return 0;
+        int count = 1;
+        if(last == null) {
+            return 0;
+        }
+        Node n = last;
+        while ((n = n.getNext()) != null) {
+            count++;
+        }
+    	return count;
     }
 }
