@@ -8,13 +8,16 @@ public class DoubleLinkedList<T>
      * Einfügen einer neuen <T>
      * @param a <T>
      */
+
     public void add(T a) {
         Node<T> node = new Node<>(a);
         node.setPrevious(this.getLast());
         if(this.getLast() != null) {
             this.getLast().setNext(node);
         }
-        current = node;
+        if(current == null) {
+            current = node;
+        }
     }
 
     /**
@@ -154,7 +157,7 @@ public class DoubleLinkedList<T>
                     node.getPrevious().setNext(node.getNext());
                 }
                 if (node.hashCode() == current.hashCode()) {
-                    current = null;
+                    current = current.getNext();
                 }
             }
         }
