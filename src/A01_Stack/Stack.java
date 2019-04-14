@@ -14,7 +14,7 @@ public class Stack<T>
             throw new StackEmptyException();
         }
         T t = first.getData();
-        Node node = first.getNext();
+        Node<T> node = first.getNext();
         if(node == null) {
             first = null;
         } else {
@@ -32,7 +32,7 @@ public class Stack<T>
         if(first == null) {
             first = new Node<>(i);
         } else {
-            Node node = new Node(i);
+            Node<T> node = new Node<>(i);
             node.setNext(first);
             first = node;
         }
@@ -48,7 +48,7 @@ public class Stack<T>
         if(first == null) {
             return 0;
         }
-        Node node = first;
+        Node<T> node = first;
         while ((node = node.getNext()) != null) {
             count++;
         }
