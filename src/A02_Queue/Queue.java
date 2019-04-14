@@ -15,7 +15,7 @@ public class Queue<T>
             throw new QueueEmptyException();
         } else {
             T t = first.getData();
-            Node node = last;
+            Node<T> node = last;
             if(node.getNext() == null) {
                 first = null;
                 last = null;
@@ -37,7 +37,7 @@ public class Queue<T>
      * @param i Zahl
      */
     public void enqueue(T i) {
-        Node node = new Node(i);
+        Node<T> node = new Node<>(i);
         if(first == null) {
             first = node;
             last = node;
