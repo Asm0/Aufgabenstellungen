@@ -45,9 +45,13 @@ public abstract class FindWay {
 	 */
 	protected ArrayList<Integer> createWay(int from, int to) {
 		ArrayList<Integer> way = new ArrayList<Integer>();
-
-		// TODO: IHRE IMPLEMENTIERUNG
-
+		int current = 0;
+		way.add(to);
+		current = to;
+		while (current != from) {
+			way.add(pred[current]);
+			current = pred[current];
+		}
 		return way;
 	}
 }
