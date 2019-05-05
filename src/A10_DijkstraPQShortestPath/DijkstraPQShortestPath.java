@@ -31,24 +31,22 @@ public class DijkstraPQShortestPath extends FindWay {
 	 *            Startknoten
 	 */
 	protected boolean calculatePath(int from, int to) {
-		//Ihre Implementierung
 		VertexHeap vertexheap = new VertexHeap(graph.numVertices());
-		for (int i = 0; i < graph.numVertices(); i++) {
+		for (int i = 0; i < graph.numVertices(); i++) {	//Forschleife fügt alle Knoten mit der initialen Distanz (=9999) in den Heap ein und setzt den Vorgänger auf -1
 			vertexheap.insert(new Vertex(i, dist[i]));
 			pred[i] = -1;
 		}
-		pred[from] = -1;
-		dist[from] = 0;
+		dist[from] = 0;							//Die Distanz zum Startknoten ist 0
 		vertexheap.setCost(from, 0);
 
 		while(!vertexheap.isEmpty()){
-			Vertex v = vertexheap.remove();
-			ArrayList<WeightedEdge> weightedEdges = (ArrayList<WeightedEdge>) graph.getEdges(v.vertex);
+			Vertex v = vertexheap.remove();																	//Knoten mit kürzester Distanz wird aus dem Heap genommen
+			ArrayList<WeightedEdge> weightedEdges = (ArrayList<WeightedEdge>) graph.getEdges(v.vertex);	//Alle Kanten von diesem Knoten weg werden in eine Liste gespeichert
 			for (WeightedEdge weightedEdge : weightedEdges) {
-				if(pred[weightedEdge.to_vertex] == -1) {
-					pred[weightedEdge.to_vertex] = v.vertex;
-					dist[weightedEdge.to_vertex] = weightedEdge.weight + v.cost;
-					vertexheap.setCost(weightedEdge.to_vertex, dist[weightedEdge.to_vertex]);
+				if(weightedEdge.weight + v.cost < weightedEdge.weight + dist[weightedEdge.to_vertex]) {	//Überprüfe ob der Weg zum Knoten besser ist als der bereits existierende
+					pred[weightedEdge.to_vertex] = v.vertex;												//Der Vorgänger des Zielknotens wird zum aktuellen Knoten
+					dist[weightedEdge.to_vertex] = weightedEdge.weight + v.cost;							//Die Distanz zum Zielknotens wird berechnet durch die Distanz zum aktuellen Knoten + das Kantengewicht.
+					vertexheap.setCost(weightedEdge.to_vertex, dist[weightedEdge.to_vertex]);				//Setze die Distanz auch im Heap
 				}
 			}
 		}
