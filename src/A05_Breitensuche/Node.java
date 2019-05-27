@@ -22,6 +22,8 @@ public class Node<Type> {
 	 */
 	protected final Type value;
 
+	protected int level;
+
 
 	/**
 	 * Konstruktor
@@ -58,5 +60,14 @@ public class Node<Type> {
 	public Type getValue() {
 		return value;
 	}
-	
+
+	//Node erweitern damit Level abgebildet wird
+	public Node(Type value, int level) {
+		this.value = value;
+		this.level = level;
+	}
+
+	public int getLevel() { return level; }
+
+	public void setLevel(int level) { this.level = level; }
 }
