@@ -3,6 +3,8 @@ package A03_DoubleLinkedList;
 public class DoubleLinkedList<T>
 {
     private Node<T> current;
+    private Node<T> last;
+    private Node<T> first;
 
     /**
      * Einfügen einer neuen <T>
@@ -11,12 +13,13 @@ public class DoubleLinkedList<T>
 
     public void add(T a) {
         Node<T> node = new Node<>(a);
-        node.setPrevious(this.getLast());
-        if(this.getLast() != null) {
-            this.getLast().setNext(node);
-        }
-        if(current == null) {
-            current = node;
+        if(first == null) { //Check if any node exists yet
+            first=node;
+            last=node;
+        } else {
+            node.setPrevious(last);
+            last.setNext(node);
+            last=node;
         }
     }
 
@@ -24,14 +27,14 @@ public class DoubleLinkedList<T>
      * Internen Zeiger für next() zurücksetzen
      */
     public void reset() {
-        current = this.getFirst();
+        current = first;
     }
 
     /**
      * analog zur Funktion reset()
      */
     public void resetToLast() {
-        current = this.getLast();
+        current = last;
     }
 
     /**
@@ -39,14 +42,10 @@ public class DoubleLinkedList<T>
      * @return Node|null
      */
     public Node<T> getFirst() {
-        if(current == null) {
+        if(first == null) {
             return null;
         }
-        Node<T> node = current;
-    	while(node.getPrevious() != null) {
-    	    node = node.getPrevious();
-        }
-    	return node;
+        return first;
     }
     
     /**
@@ -54,14 +53,10 @@ public class DoubleLinkedList<T>
      * @return Node|null
      */
     public Node<T> getLast() {
-        if(current == null) {
+        if(last == null) {
             return null;
         }
-        Node<T> node = current;
-        while(node.getNext() != null) {
-            node = node.getNext();
-        }
-        return node;
+        return last;
     }
     
     /**
@@ -128,7 +123,7 @@ public class DoubleLinkedList<T>
      * @return <T>|null
      */
     public T get(int pos) {
-        Node<T> node = this.getFirst();
+        Node<T> node = first;
         for (int i = 1; i < pos; i++) {
             if(node == null) {
                 return null;
@@ -144,20 +139,24 @@ public class DoubleLinkedList<T>
      * @param pos
      */
     public void remove(int pos) {
-        if(this.getFirst() != null) {
-            Node<T> node = this.getFirst();
+        if(first != null) {
+            Node<T> node = first;
             for (int i = 1; i < pos; i++) {
                 node = node.getNext();
             }
             if (node != null) {
                 if (node.getNext() != null) {
                     node.getNext().setPrevious(node.getPrevious());
+                } else {
+                    last = last.getPrevious();
                 }
                 if (node.getPrevious() != null) {
                     node.getPrevious().setNext(node.getNext());
+                } else {
+                    first = first.getNext();
                 }
-                if (node.hashCode() == current.hashCode()) {
-                    current = current.getNext();
+                if (current != null && node.hashCode() == current.hashCode()) {
+                    current = null;
                 }
             }
         }
@@ -175,11 +174,14 @@ public class DoubleLinkedList<T>
         }
         if(current.getPrevious() != null) {
             current.getPrevious().setNext(current.getNext());
+        } else {
+            first = first.getNext();
         }
         if(current.getNext() != null) {
             current.getNext().setPrevious(current.getPrevious());
             current = current.getNext();
         } else {
+            last = last.getPrevious();
             current = current.getPrevious();
         }
     }
