@@ -36,13 +36,17 @@ public class ListGraph implements Graph {
 	}
 
 	public void addEdge(int u, int v) {
-		addEdge(u, v, 1);
+		addEdge(u, v, 1, false);
+	}
+
+	public void addEdge(int u, int v, int weight) {
+		addEdge(u, v, weight, false);
 	}
 	
-	public void addEdge(int u, int v, int weight) {
-		graph[u].add(new WeightedEdge(u, v, weight));
+	public void addEdge(int u, int v, int weight, boolean charge) {
+		graph[u].add(new WeightedEdge(u, v, weight, charge));
 		if (!directed) {
-			graph[v].add(new WeightedEdge(v, u, weight));
+			graph[v].add(new WeightedEdge(v, u, weight, charge));
 		}
 	}
 	

@@ -1,5 +1,4 @@
 package A11_DijkstraDGShortestPath;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -36,6 +35,11 @@ public class ArrayGraph implements Graph {
 	}
 	
 	public void addEdge(int u, int v, int weight) {
+		// TODO
+	}
+
+	@Override
+	public void addEdge(int u, int v, int weight, boolean charge) {
 		// TODO
 	}
 
