@@ -42,7 +42,7 @@ public class DijkstraPQShortestPath extends FindWay {
 			Vertex v = vertexheap.remove();																	//Knoten mit kürzester Distanz wird aus dem Heap genommen
 			ArrayList<WeightedEdge> weightedEdges = (ArrayList<WeightedEdge>) graph.getEdges(v.vertex);	//Alle Kanten von diesem Knoten weg werden in eine Liste gespeichert
 			for (WeightedEdge weightedEdge : weightedEdges) {
-				if(weightedEdge.weight + v.cost < dist[weightedEdge.to_vertex]) {	//Überprüfe ob der Weg zum Knoten besser ist als der bereits existierende
+				if(weightedEdge.weight + v.cost < dist[weightedEdge.to_vertex]) {	//Überprüfe ob der Weg zum Knoten besser ist als der bereits existierende.
 					pred[weightedEdge.to_vertex] = v.vertex;												//Der Vorgänger des Zielknotens wird zum aktuellen Knoten
 					dist[weightedEdge.to_vertex] = weightedEdge.weight + v.cost;							//Die Distanz zum Zielknotens wird berechnet durch die Distanz zum aktuellen Knoten + das Kantengewicht.
 					vertexheap.setCost(weightedEdge.to_vertex, dist[weightedEdge.to_vertex]);				//Setze die Distanz auch im Heap
