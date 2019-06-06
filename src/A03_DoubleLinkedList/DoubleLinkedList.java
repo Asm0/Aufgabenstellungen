@@ -42,9 +42,6 @@ public class DoubleLinkedList<T>
      * @return Node|null
      */
     public Node<T> getFirst() {
-        if(first == null) {
-            return null;
-        }
         return first;
     }
     
@@ -53,9 +50,6 @@ public class DoubleLinkedList<T>
      * @return Node|null
      */
     public Node<T> getLast() {
-        if(last == null) {
-            return null;
-        }
         return last;
     }
     
